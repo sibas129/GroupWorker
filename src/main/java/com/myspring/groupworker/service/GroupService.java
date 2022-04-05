@@ -22,8 +22,8 @@ public class GroupService {
         return groups.get(id);
     }
 
-    public List<Group> findAll(){
-        return new ArrayList<>(groups.values());
+    public Map<Integer, Group> findAll(){
+        return groups;
     }
 
     public Group saveNewGroup(Group group){

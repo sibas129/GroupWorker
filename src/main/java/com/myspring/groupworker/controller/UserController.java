@@ -1,5 +1,6 @@
 package com.myspring.groupworker.controller;
 
+import com.myspring.groupworker.model.Group;
 import com.myspring.groupworker.model.User;
 import com.myspring.groupworker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -20,27 +24,25 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String findAll(Model model){
-        model.addAttribute("users", userService.findAll());
-
-        return "/users";
+    @ResponseBody
+    public Map<Integer, User> findAll(){
+        return userService.findAll();
     }
 
     @GetMapping("/users-with-correct-groupId/{groupId}")
-    public String findAllWithCorrectGroupId(@PathVariable("groupId") int groupId, Model model){
-        model.addAttribute("users", userService.findByGroupId(groupId));
-
-        return "users";
+    @ResponseBody
+    public Map<Integer, User> findAllWithCorrectGroupId(@PathVariable("groupId") int groupId, Model model){
+        return userService.findByGroupId(groupId);
     }
 
     @GetMapping("/users-with-correct-id/{id}")
-    public String findById(@PathVariable("id") int id, Model model){
-        model.addAttribute("users", userService.findById(id));
-
-        return "users";
+    @ResponseBody
+    public User findById(@PathVariable("id") int id, Model model){
+        return userService.findById(id);
     }
 
     @GetMapping("/user-create")
+    @ResponseBody
     public String createUserForm(User user){
         return "new-user-create";
     }
