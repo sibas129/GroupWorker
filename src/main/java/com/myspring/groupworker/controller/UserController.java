@@ -1,15 +1,11 @@
 package com.myspring.groupworker.controller;
 
-import com.myspring.groupworker.model.Group;
 import com.myspring.groupworker.model.User;
 import com.myspring.groupworker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -31,23 +27,22 @@ public class UserController {
 
     @GetMapping("/users-with-correct-groupId/{groupId}")
     @ResponseBody
-    public Map<Integer, User> findAllWithCorrectGroupId(@PathVariable("groupId") int groupId, Model model){
+    public Map<Integer, User> findAllWithCorrectGroupId(@PathVariable("groupId") int groupId){
         return userService.findByGroupId(groupId);
     }
 
     @GetMapping("/users-with-correct-id/{id}")
     @ResponseBody
-    public User findById(@PathVariable("id") int id, Model model){
+    public User findById(@PathVariable("id") int id){
         return userService.findById(id);
     }
 
     @GetMapping("/user-create")
-    @ResponseBody
     public String createUserForm(User user){
-        return "new-user-create";
+        return "user-create";
     }
 
-    @PostMapping("/new-user-create")
+    @PostMapping("/user-create")
     public String createUser(User user){
         userService.saveNewUser(user);
         return "redirect:/users";
