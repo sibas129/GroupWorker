@@ -22,11 +22,11 @@ public class UserService {
         users.put(4, new User("Andrey", 3));
     }
 
-    public User findById(int id){
+    public User findById(Integer id){
         return users.get(id);
     }
 
-    public Map<Integer, User> findByGroupId(int groupId){
+    public Map<Integer, User> findByGroupId(Integer groupId){
         Set<Integer> foundUsersKeys = users.entrySet()
                 .stream()
                 .filter(x -> x.getValue().getGroupId() == groupId)
@@ -34,7 +34,7 @@ public class UserService {
                 .collect(Collectors.toSet());
 
         Map<Integer, User> foundUsers = new HashMap<>();
-        for(int key : foundUsersKeys){
+        for(Integer key : foundUsersKeys){
             foundUsers.put(key, users.get(key));
         }
 
@@ -49,7 +49,11 @@ public class UserService {
         return users.put(users.size() + 1, user);
     }
 
-    public void deleteById(int id){
+    public User saveOldUser(Integer id, User user){
+        return users.put(id, user);
+    }
+
+    public void deleteById(Integer id){
         users.remove(id);
     }
 }

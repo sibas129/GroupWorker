@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
-    public User(String name, int groupId){
+    public User(String name, Integer groupId){
         this.name = name;
         this.groupId = groupId;
     }
@@ -16,5 +16,5 @@ public class User {
     @Column(name = "name")
     private String name;
     @Column(name = "group_id")
-    private int groupId;
+    private Integer groupId;
 }
