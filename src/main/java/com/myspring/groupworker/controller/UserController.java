@@ -58,12 +58,13 @@ public class UserController {
     public String updateUserForm(@PathVariable("id") Integer id, Model model){
         User user = userService.findById(id);
         model.addAttribute("user", user);
+        model.addAttribute("id", id);
         return "user-update";
     }
 
     @PostMapping("/user-update")
-    public String updateUser(User user){
-        userService.saveNewUser(user);
+    public String updateUser(User user, Integer id){
+        userService.saveOldUser(id, user);
         return "redirect:/users";
     }
 }
